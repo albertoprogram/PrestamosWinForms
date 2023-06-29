@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Win32;
 using PrestamosWinForms.Entidades;
 
 namespace PrestamosWinForms.Servicios
@@ -52,8 +53,10 @@ namespace PrestamosWinForms.Servicios
             }
         }
 
-        public List<Cliente> ObtenerClientes()
+        public List<Cliente> ObtenerClientes(int pagina, int registros)
         {
+            int offSet = (pagina - 1) * registros;
+
             List<Cliente> clientes = new List<Cliente>();
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -62,7 +65,10 @@ namespace PrestamosWinForms.Servicios
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
 
-                    cmd.CommandText = "SELECT Id,NombreCompleto,NumeroTelefono,Email,Direccion FROM Clientes ";
+                    cmd.CommandText = "SELECT Id,NombreCompleto,NumeroTelefono,Email,Direccion " +
+                        "FROM Clientes ORDER BY Id " +
+                        $"OFFSET {offSet} ROWS " +
+                        $"FETCH NEXT {registros} ROWS ONLY";
 
                     cmd.Connection = sqlConnection;
 
@@ -90,6 +96,29 @@ namespace PrestamosWinForms.Servicios
             }
 
             return clientes;
+        }
+
+        public int CantidadTotalClientes()
+        {
+            int count = 0;
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+
+                    cmd.CommandText = "SELECT COUNT (*) FROM Clientes";
+
+                    cmd.Connection = sqlConnection;
+
+                    sqlConnection.Open();
+
+                    count = (int)cmd.ExecuteScalar();
+                }
+            }
+
+            return count;
         }
     }
 }

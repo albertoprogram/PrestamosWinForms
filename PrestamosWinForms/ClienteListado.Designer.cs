@@ -34,6 +34,18 @@
             NumeroTelefono = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
             Direccion = new DataGridViewTextBoxColumn();
+            cbRegistrosXPagina = new ComboBox();
+            lblRegistrosXPagina = new Label();
+            lblPagina = new Label();
+            txtPagina = new TextBox();
+            linkLblInicio = new LinkLabel();
+            linkLblFinal = new LinkLabel();
+            linkLblAnterior = new LinkLabel();
+            linkLblSiguiente = new LinkLabel();
+            lblTotalRegistros = new Label();
+            lblTotalRegistrosValue = new Label();
+            lblTotalPaginas = new Label();
+            lblTotalPaginasValue = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
             // 
@@ -91,17 +103,143 @@
             Direccion.ReadOnly = true;
             Direccion.Width = 125;
             // 
+            // cbRegistrosXPagina
+            // 
+            cbRegistrosXPagina.FormattingEnabled = true;
+            cbRegistrosXPagina.Items.AddRange(new object[] { "2", "3", "5" });
+            cbRegistrosXPagina.Location = new Point(201, 503);
+            cbRegistrosXPagina.Name = "cbRegistrosXPagina";
+            cbRegistrosXPagina.Size = new Size(67, 28);
+            cbRegistrosXPagina.TabIndex = 1;
+            cbRegistrosXPagina.Text = "2";
+            // 
+            // lblRegistrosXPagina
+            // 
+            lblRegistrosXPagina.AutoSize = true;
+            lblRegistrosXPagina.Location = new Point(55, 506);
+            lblRegistrosXPagina.Name = "lblRegistrosXPagina";
+            lblRegistrosXPagina.Size = new Size(140, 20);
+            lblRegistrosXPagina.TabIndex = 2;
+            lblRegistrosXPagina.Text = "lblRegistrosXPagina";
+            // 
+            // lblPagina
+            // 
+            lblPagina.AutoSize = true;
+            lblPagina.Location = new Point(274, 506);
+            lblPagina.Name = "lblPagina";
+            lblPagina.Size = new Size(70, 20);
+            lblPagina.TabIndex = 3;
+            lblPagina.Text = "lblPagina";
+            // 
+            // txtPagina
+            // 
+            txtPagina.Location = new Point(350, 503);
+            txtPagina.Name = "txtPagina";
+            txtPagina.Size = new Size(53, 27);
+            txtPagina.TabIndex = 4;
+            txtPagina.Text = "1";
+            // 
+            // linkLblInicio
+            // 
+            linkLblInicio.AutoSize = true;
+            linkLblInicio.Location = new Point(778, 500);
+            linkLblInicio.Name = "linkLblInicio";
+            linkLblInicio.Size = new Size(88, 20);
+            linkLblInicio.TabIndex = 5;
+            linkLblInicio.TabStop = true;
+            linkLblInicio.Text = "linkLblInicio";
+            // 
+            // linkLblFinal
+            // 
+            linkLblFinal.AutoSize = true;
+            linkLblFinal.Location = new Point(1157, 500);
+            linkLblFinal.Name = "linkLblFinal";
+            linkLblFinal.Size = new Size(83, 20);
+            linkLblFinal.TabIndex = 6;
+            linkLblFinal.TabStop = true;
+            linkLblFinal.Text = "linkLblFinal";
+            // 
+            // linkLblAnterior
+            // 
+            linkLblAnterior.AutoSize = true;
+            linkLblAnterior.Location = new Point(907, 500);
+            linkLblAnterior.Name = "linkLblAnterior";
+            linkLblAnterior.Size = new Size(106, 20);
+            linkLblAnterior.TabIndex = 7;
+            linkLblAnterior.TabStop = true;
+            linkLblAnterior.Text = "linkLblAnterior";
+            // 
+            // linkLblSiguiente
+            // 
+            linkLblSiguiente.AutoSize = true;
+            linkLblSiguiente.Location = new Point(1019, 500);
+            linkLblSiguiente.Name = "linkLblSiguiente";
+            linkLblSiguiente.Size = new Size(114, 20);
+            linkLblSiguiente.TabIndex = 8;
+            linkLblSiguiente.TabStop = true;
+            linkLblSiguiente.Text = "linkLblSiguiente";
+            linkLblSiguiente.LinkClicked += linkLblSiguiente_LinkClicked;
+            // 
+            // lblTotalRegistros
+            // 
+            lblTotalRegistros.AutoSize = true;
+            lblTotalRegistros.Location = new Point(409, 506);
+            lblTotalRegistros.Name = "lblTotalRegistros";
+            lblTotalRegistros.Size = new Size(120, 20);
+            lblTotalRegistros.TabIndex = 9;
+            lblTotalRegistros.Text = "lblTotalRegistros";
+            // 
+            // lblTotalRegistrosValue
+            // 
+            lblTotalRegistrosValue.AutoSize = true;
+            lblTotalRegistrosValue.Location = new Point(535, 506);
+            lblTotalRegistrosValue.Name = "lblTotalRegistrosValue";
+            lblTotalRegistrosValue.Size = new Size(156, 20);
+            lblTotalRegistrosValue.TabIndex = 10;
+            lblTotalRegistrosValue.Text = "lblTotalRegistrosValue";
+            // 
+            // lblTotalPaginas
+            // 
+            lblTotalPaginas.AutoSize = true;
+            lblTotalPaginas.Location = new Point(409, 536);
+            lblTotalPaginas.Name = "lblTotalPaginas";
+            lblTotalPaginas.Size = new Size(109, 20);
+            lblTotalPaginas.TabIndex = 11;
+            lblTotalPaginas.Text = "lblTotalPaginas";
+            // 
+            // lblTotalPaginasValue
+            // 
+            lblTotalPaginasValue.AutoSize = true;
+            lblTotalPaginasValue.Location = new Point(535, 536);
+            lblTotalPaginasValue.Name = "lblTotalPaginasValue";
+            lblTotalPaginasValue.Size = new Size(145, 20);
+            lblTotalPaginasValue.TabIndex = 12;
+            lblTotalPaginasValue.Text = "lblTotalPaginasValue";
+            // 
             // ClienteListado
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1317, 568);
+            ClientSize = new Size(1317, 630);
+            Controls.Add(lblTotalPaginasValue);
+            Controls.Add(lblTotalPaginas);
+            Controls.Add(lblTotalRegistrosValue);
+            Controls.Add(lblTotalRegistros);
+            Controls.Add(linkLblSiguiente);
+            Controls.Add(linkLblAnterior);
+            Controls.Add(linkLblFinal);
+            Controls.Add(linkLblInicio);
+            Controls.Add(txtPagina);
+            Controls.Add(lblPagina);
+            Controls.Add(lblRegistrosXPagina);
+            Controls.Add(cbRegistrosXPagina);
             Controls.Add(dgvClientes);
             Name = "ClienteListado";
             Text = "ClienteListado";
             Load += ClienteListado_Load;
             ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -112,5 +250,17 @@
         private DataGridViewTextBoxColumn NumeroTelefono;
         private DataGridViewTextBoxColumn Email;
         private DataGridViewTextBoxColumn Direccion;
+        private ComboBox cbRegistrosXPagina;
+        private Label lblRegistrosXPagina;
+        private Label lblPagina;
+        private TextBox txtPagina;
+        private LinkLabel linkLblInicio;
+        private LinkLabel linkLblFinal;
+        private LinkLabel linkLblAnterior;
+        private LinkLabel linkLblSiguiente;
+        private Label lblTotalRegistros;
+        private Label lblTotalRegistrosValue;
+        private Label lblTotalPaginas;
+        private Label lblTotalPaginasValue;
     }
 }
