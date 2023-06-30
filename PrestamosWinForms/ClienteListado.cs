@@ -25,6 +25,8 @@ namespace PrestamosWinForms
 
         private void ClienteListado_Load(object sender, EventArgs e)
         {
+            if (txtPagina.Text == "1") linkLblInicio.Enabled = false;
+
             ServiciosCliente serviciosCliente = new ServiciosCliente();
 
             lblTotalRegistrosValue.Text = serviciosCliente.CantidadTotalClientes().ToString();
@@ -60,17 +62,13 @@ namespace PrestamosWinForms
 
         private void linkLblSiguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (txtPagina.Text == lblTotalPaginasValue.Text)
-            {
-                linkLblSiguiente.Enabled = false;
-                return;
-            }
-
             ServiciosCliente serviciosCliente = new ServiciosCliente();
 
             pagina = Convert.ToInt32(txtPagina.Text) + 1;
 
             txtPagina.Text = pagina.ToString();
+
+            if (Convert.ToInt32(txtPagina.Text) > 1) linkLblInicio.Enabled = true;
 
             registros = Convert.ToInt32(cbRegistrosXPagina.Text);
 
@@ -89,6 +87,12 @@ namespace PrestamosWinForms
                         cliente.Email,
                         cliente.Direccion);
                 }
+            }
+
+            if (txtPagina.Text == lblTotalPaginasValue.Text)
+            {
+                linkLblSiguiente.Enabled = false;
+                linkLblFinal.Enabled = false;
             }
         }
     }
