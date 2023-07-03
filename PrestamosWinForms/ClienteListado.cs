@@ -25,7 +25,11 @@ namespace PrestamosWinForms
 
         private void ClienteListado_Load(object sender, EventArgs e)
         {
-            if (txtPagina.Text == "1") linkLblInicio.Enabled = false;
+            if (txtPagina.Text == "1")
+            {
+                linkLblInicio.Enabled = false;
+                linkLblAnterior.Enabled = false;
+            }
 
             ServiciosCliente serviciosCliente = new ServiciosCliente();
 
@@ -68,7 +72,136 @@ namespace PrestamosWinForms
 
             txtPagina.Text = pagina.ToString();
 
-            if (Convert.ToInt32(txtPagina.Text) > 1) linkLblInicio.Enabled = true;
+            if (Convert.ToInt32(txtPagina.Text) > 1)
+            {
+                linkLblInicio.Enabled = true;
+                linkLblAnterior.Enabled = true;
+            }
+
+            registros = Convert.ToInt32(cbRegistrosXPagina.Text);
+
+            List<Cliente> clientes = serviciosCliente.ObtenerClientes(pagina, registros);
+
+            if (clientes.Count > 0)
+            {
+                dgvClientes.Rows.Clear();
+
+                foreach (Cliente cliente in clientes)
+                {
+                    dgvClientes.Rows.Add(
+                        cliente.Id,
+                        cliente.NombreCompleto,
+                        cliente.NumeroTelefono,
+                        cliente.Email,
+                        cliente.Direccion);
+                }
+            }
+
+            if (txtPagina.Text == lblTotalPaginasValue.Text)
+            {
+                linkLblSiguiente.Enabled = false;
+                linkLblFinal.Enabled = false;
+            }
+        }
+
+        private void linkLblInicio_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ServiciosCliente serviciosCliente = new ServiciosCliente();
+
+            pagina = 1;
+
+            txtPagina.Text = pagina.ToString();
+
+            if (Convert.ToInt32(txtPagina.Text) == 1)
+            {
+                linkLblInicio.Enabled = false;
+                linkLblAnterior.Enabled = false;
+
+                linkLblSiguiente.Enabled = true;
+                linkLblFinal.Enabled = true;
+            }
+
+            registros = Convert.ToInt32(cbRegistrosXPagina.Text);
+
+            List<Cliente> clientes = serviciosCliente.ObtenerClientes(pagina, registros);
+
+            if (clientes.Count > 0)
+            {
+                dgvClientes.Rows.Clear();
+
+                foreach (Cliente cliente in clientes)
+                {
+                    dgvClientes.Rows.Add(
+                        cliente.Id,
+                        cliente.NombreCompleto,
+                        cliente.NumeroTelefono,
+                        cliente.Email,
+                        cliente.Direccion);
+                }
+            }
+        }
+
+        private void linkLblAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ServiciosCliente serviciosCliente = new ServiciosCliente();
+
+            pagina = Convert.ToInt32(txtPagina.Text) - 1;
+
+            txtPagina.Text = pagina.ToString();
+
+            if (Convert.ToInt32(txtPagina.Text) > 1)
+            {
+                linkLblInicio.Enabled = true;
+                linkLblAnterior.Enabled = true;
+            }
+            else if (Convert.ToInt32(txtPagina.Text) == 1)
+            {
+                linkLblInicio.Enabled = false;
+                linkLblAnterior.Enabled = false;
+
+                linkLblSiguiente.Enabled = true;
+                linkLblFinal.Enabled = true;
+            }
+
+            registros = Convert.ToInt32(cbRegistrosXPagina.Text);
+
+            List<Cliente> clientes = serviciosCliente.ObtenerClientes(pagina, registros);
+
+            if (clientes.Count > 0)
+            {
+                dgvClientes.Rows.Clear();
+
+                foreach (Cliente cliente in clientes)
+                {
+                    dgvClientes.Rows.Add(
+                        cliente.Id,
+                        cliente.NombreCompleto,
+                        cliente.NumeroTelefono,
+                        cliente.Email,
+                        cliente.Direccion);
+                }
+            }
+
+            if (txtPagina.Text != lblTotalPaginasValue.Text)
+            {
+                linkLblSiguiente.Enabled = true;
+                linkLblFinal.Enabled = true;
+            }
+        }
+
+        private void linkLblFinal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ServiciosCliente serviciosCliente = new ServiciosCliente();
+
+            pagina = Convert.ToInt32(lblTotalPaginasValue.Text);
+
+            txtPagina.Text = pagina.ToString();
+
+            if (Convert.ToInt32(txtPagina.Text) > 1)
+            {
+                linkLblInicio.Enabled = true;
+                linkLblAnterior.Enabled = true;
+            }
 
             registros = Convert.ToInt32(cbRegistrosXPagina.Text);
 

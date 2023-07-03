@@ -148,6 +148,7 @@
             linkLblInicio.TabIndex = 5;
             linkLblInicio.TabStop = true;
             linkLblInicio.Text = "linkLblInicio";
+            linkLblInicio.LinkClicked += linkLblInicio_LinkClicked;
             // 
             // linkLblFinal
             // 
@@ -158,6 +159,7 @@
             linkLblFinal.TabIndex = 6;
             linkLblFinal.TabStop = true;
             linkLblFinal.Text = "linkLblFinal";
+            linkLblFinal.LinkClicked += linkLblFinal_LinkClicked;
             // 
             // linkLblAnterior
             // 
@@ -168,6 +170,7 @@
             linkLblAnterior.TabIndex = 7;
             linkLblAnterior.TabStop = true;
             linkLblAnterior.Text = "linkLblAnterior";
+            linkLblAnterior.LinkClicked += linkLblAnterior_LinkClicked;
             // 
             // linkLblSiguiente
             // 
