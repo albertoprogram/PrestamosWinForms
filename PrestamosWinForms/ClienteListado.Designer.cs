@@ -112,6 +112,7 @@
             cbRegistrosXPagina.Size = new Size(67, 28);
             cbRegistrosXPagina.TabIndex = 1;
             cbRegistrosXPagina.Text = "2";
+            cbRegistrosXPagina.SelectedIndexChanged += cbRegistrosXPagina_SelectedIndexChanged;
             // 
             // lblRegistrosXPagina
             // 

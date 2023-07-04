@@ -1,15 +1,5 @@
 ﻿using PrestamosWinForms.Entidades;
 using PrestamosWinForms.Servicios;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PrestamosWinForms
 {
@@ -226,6 +216,54 @@ namespace PrestamosWinForms
             {
                 linkLblSiguiente.Enabled = false;
                 linkLblFinal.Enabled = false;
+            }
+        }
+
+        private void cbRegistrosXPagina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ServiciosCliente serviciosCliente = new ServiciosCliente();
+
+            lblTotalRegistrosValue.Text = serviciosCliente.CantidadTotalClientes().ToString();
+
+            int resto = Convert.ToInt32(lblTotalRegistrosValue.Text) %
+                Convert.ToInt32(cbRegistrosXPagina.Text);
+
+            lblTotalPaginasValue.Text = resto == 0 ?
+                (Convert.ToInt32(lblTotalRegistrosValue.Text) /
+                Convert.ToInt32(cbRegistrosXPagina.Text)).ToString() :
+                ((Convert.ToInt32(lblTotalRegistrosValue.Text) /
+                Convert.ToInt32(cbRegistrosXPagina.Text)) + 1).ToString();
+
+            pagina = 1;
+
+            txtPagina.Text = pagina.ToString();
+
+            registros = Convert.ToInt32(cbRegistrosXPagina.Text);
+
+            List<Cliente> clientes = serviciosCliente.ObtenerClientes(pagina, registros);
+
+            if (clientes.Count > 0)
+            {
+                dgvClientes.Rows.Clear();
+
+                foreach (Cliente cliente in clientes)
+                {
+                    dgvClientes.Rows.Add(
+                        cliente.Id,
+                        cliente.NombreCompleto,
+                        cliente.NumeroTelefono,
+                        cliente.Email,
+                        cliente.Direccion);
+                }
+            }
+
+            if (txtPagina.Text == "1")
+            {
+                linkLblInicio.Enabled = false;
+                linkLblAnterior.Enabled = false;
+
+                linkLblSiguiente.Enabled = true;
+                linkLblFinal.Enabled = true;
             }
         }
     }
