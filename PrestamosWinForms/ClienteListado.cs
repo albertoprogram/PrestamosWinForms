@@ -266,5 +266,105 @@ namespace PrestamosWinForms
                 linkLblFinal.Enabled = true;
             }
         }
+
+        private void txtPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (Convert.ToInt32(txtPagina.Text) <= Convert.ToInt32(lblTotalPaginasValue.Text))
+                {
+                    ServiciosCliente serviciosCliente = new ServiciosCliente();
+
+                    if (Convert.ToInt32(txtPagina.Text) > 1)
+                    {
+                        linkLblInicio.Enabled = true;
+                        linkLblAnterior.Enabled = true;
+                    }
+
+                    if (Convert.ToInt32(txtPagina.Text) == 1)
+                    {
+                        linkLblInicio.Enabled = false;
+                        linkLblAnterior.Enabled = false;
+
+                        linkLblSiguiente.Enabled = true;
+                        linkLblFinal.Enabled = true;
+                    }
+
+                    pagina = Convert.ToInt32(txtPagina.Text);
+                    registros = Convert.ToInt32(cbRegistrosXPagina.Text);
+
+                    List<Cliente> clientes = serviciosCliente.ObtenerClientes(pagina, registros);
+
+                    if (clientes.Count > 0)
+                    {
+                        dgvClientes.Rows.Clear();
+
+                        foreach (Cliente cliente in clientes)
+                        {
+                            dgvClientes.Rows.Add(
+                                cliente.Id,
+                                cliente.NombreCompleto,
+                                cliente.NumeroTelefono,
+                                cliente.Email,
+                                cliente.Direccion);
+                        }
+                    }
+
+                    if (txtPagina.Text == lblTotalPaginasValue.Text)
+                    {
+                        linkLblSiguiente.Enabled = false;
+                        linkLblFinal.Enabled = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese una página no mayor a la cantidad total de páginas", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    ServiciosCliente serviciosCliente = new ServiciosCliente();
+
+                    pagina = 1;
+
+                    txtPagina.Text = pagina.ToString();
+
+                    if (Convert.ToInt32(txtPagina.Text) == 1)
+                    {
+                        linkLblInicio.Enabled = false;
+                        linkLblAnterior.Enabled = false;
+
+                        linkLblSiguiente.Enabled = true;
+                        linkLblFinal.Enabled = true;
+                    }
+
+                    registros = Convert.ToInt32(cbRegistrosXPagina.Text);
+
+                    List<Cliente> clientes = serviciosCliente.ObtenerClientes(pagina, registros);
+
+                    if (clientes.Count > 0)
+                    {
+                        dgvClientes.Rows.Clear();
+
+                        foreach (Cliente cliente in clientes)
+                        {
+                            dgvClientes.Rows.Add(
+                                cliente.Id,
+                                cliente.NombreCompleto,
+                                cliente.NumeroTelefono,
+                                cliente.Email,
+                                cliente.Direccion);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void txtPagina_Enter(object sender, EventArgs e)
+        {
+            txtPagina.SelectAll();
+        }
+
+        private void txtPagina_Click(object sender, EventArgs e)
+        {
+            txtPagina.SelectAll();
+        }
     }
 }

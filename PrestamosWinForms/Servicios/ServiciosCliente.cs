@@ -24,33 +24,42 @@ namespace PrestamosWinForms.Servicios
 
         public void InsertarCliente(Cliente cliente)
         {
-            if (connectionString == null ||
-                cliente.Id == string.Empty ||
-                cliente.NombreCompleto == string.Empty)
+            try
             {
-                return;
-            }
-
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand())
+                if (connectionString == null ||
+                    cliente.Id == string.Empty ||
+                    cliente.NombreCompleto == string.Empty)
                 {
-                    cmd.CommandType = System.Data.CommandType.Text;
+                    return;
+                }
 
-                    cmd.CommandText = "INSERT INTO Clientes " +
-                        "(Id,NombreCompleto,NumeroTelefono," +
-                        "Email,Direccion)" +
-                        "VALUES(" +
-                        $"'{cliente.Id}','{cliente.NombreCompleto}','{cliente.NumeroTelefono}'," +
-                        $"'{cliente.Email}','{cliente.Direccion}')";
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandType = System.Data.CommandType.Text;
 
-                    cmd.Connection = sqlConnection;
+                        cmd.CommandText = "INSERT INTO Clientes " +
+                            "(Id,NombreCompleto,NumeroTelefono," +
+                            "Email,Direccion)" +
+                            "VALUES(" +
+                            $"'{cliente.Id}','{cliente.NombreCompleto}','{cliente.NumeroTelefono}'," +
+                            $"'{cliente.Email}','{cliente.Direccion}')";
 
-                    sqlConnection.Open();
+                        cmd.Connection = sqlConnection;
 
-                    cmd.ExecuteNonQuery();
+                        sqlConnection.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
         }
 
         public List<Cliente> ObtenerClientes(int pagina, int registros)

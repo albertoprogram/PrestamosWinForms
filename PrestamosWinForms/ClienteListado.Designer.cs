@@ -139,6 +139,9 @@
             txtPagina.Size = new Size(53, 27);
             txtPagina.TabIndex = 4;
             txtPagina.Text = "1";
+            txtPagina.Click += txtPagina_Click;
+            txtPagina.Enter += txtPagina_Enter;
+            txtPagina.KeyDown += txtPagina_KeyDown;
             // 
             // linkLblInicio
             // 

@@ -31,7 +31,16 @@ namespace PrestamosWinForms
 
             ServiciosCliente serviciosCliente = new ServiciosCliente();
 
-            serviciosCliente.InsertarCliente(cliente);
+            try
+            {
+                serviciosCliente.InsertarCliente(cliente);
+
+                MessageBox.Show("El registro ha sido insertado correctamente");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnClientesListado_Click(object sender, EventArgs e)
